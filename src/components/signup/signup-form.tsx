@@ -1,17 +1,17 @@
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import { LoginFormData } from "../../types/types";
+import { SignupFormData } from "../../types/types";
 import auth from "../../auth";
 
-export default function LoginForm() {
-  const { register, handleSubmit } = useForm<LoginFormData>();
+export default function SignupForm() {
+  const { register, handleSubmit } = useForm<SignupFormData>();
   const navigate = useNavigate();
 
-  async function onSubmit(data: LoginFormData) {
+  async function onSubmit(data: SignupFormData) {
     try {
-      await auth.login(data);
+      await auth.signup(data);
       navigate("/");
-    } catch(e) {
+    } catch (e) {
       console.log("Error Occured!");
       console.log(e);
     }
@@ -22,6 +22,13 @@ export default function LoginForm() {
       onSubmit={handleSubmit(onSubmit)}
       className="flex flex-col w-full items-center gap-y-8 basis-4/5"
     >
+      <input
+        id="username"
+        className="border text-md rounded py-2 px-4 w-3/4"
+        placeholder="نام کاربری"
+        {...register("username", { required: true })}
+      />
+
       <input
         type="email"
         id="email"
@@ -42,7 +49,7 @@ export default function LoginForm() {
         className="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none rounded px-5 py-2.5 w-1/3 text-center"
         type="submit"
       >
-        ورود
+        ثبت‌نام
       </button>
     </form>
   );
